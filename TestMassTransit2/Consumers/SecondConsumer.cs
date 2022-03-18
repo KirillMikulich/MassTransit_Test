@@ -18,7 +18,7 @@ namespace TestMassTransit2.Consumers
     {
         public async Task Consume(ConsumeContext<C> context)
         {
-            await context.RespondAsync<D>(new { Text = "Example Text" });
+            await context.RespondAsync(new D() { Text = "Example Text" });
         }
     }
 }

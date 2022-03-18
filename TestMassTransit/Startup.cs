@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Reflection;
+using TestMassTransit2.Consumers;
 
 namespace TestMassTransit
 {
@@ -30,6 +31,7 @@ namespace TestMassTransit
             services.AddMassTransit(x =>
             {
                 x.AddConsumers(Assembly.GetExecutingAssembly());
+
                 x.SetKebabCaseEndpointNameFormatter();
 
                 x.UsingRabbitMq((context, configurator) =>
