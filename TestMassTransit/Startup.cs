@@ -41,15 +41,13 @@ namespace TestMassTransit
                     });
 
                 });
-                
-
-
             });
 
-            services.AddMediator(mediator => Bus.Factory.CreateMediator(cfg =>
+            services.AddMediator(cfg =>
             {
-                cfg.Consumer<FirstConsumer>();
-            }));
+                cfg.AddConsumers(Assembly.GetExecutingAssembly());
+                cfg.AddRequestClient<A>();
+            });
 
             services.AddMassTransitHostedService();
             services.AddControllers();
