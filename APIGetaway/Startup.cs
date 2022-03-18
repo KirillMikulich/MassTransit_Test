@@ -38,6 +38,12 @@ namespace APIGetaway
                 });
 
             });
+
+            services.AddMediator(cfg =>
+            {
+                cfg.AddConsumers(Assembly.GetExecutingAssembly());
+                cfg.AddRequestClient<A>();
+            });
             services.AddMassTransitHostedService();
 
 
