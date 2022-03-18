@@ -1,4 +1,3 @@
-using APIGetaway;
 using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -8,8 +7,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Reflection;
-using TestMassTransit.Consumers;
-using static MassTransit.MessageHeaders;
 
 namespace TestMassTransit
 {
@@ -25,8 +22,6 @@ namespace TestMassTransit
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-
             services.AddMediator(c =>
             {
                 c.AddConsumers(Assembly.GetExecutingAssembly());

@@ -1,3 +1,4 @@
+using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -10,6 +11,7 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace TestMassTransit2
@@ -26,7 +28,29 @@ namespace TestMassTransit2
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMediator(c =>
+            {
+                c.AddConsumers(Assembly.GetExecutingAssembly());
+            });
+            services.AddControllers();
+            services.AddMassTransit(x =>
+            {
+                x.AddConsumers(Assembly.GetExecutingAssembly());
+                x.SetKebabCaseEndpointNameFormatter();
 
+                x.UsingRabbitMq((context, configurator) =>
+                {
+                    configurator.Host(new Uri("rabbitmq://localhost"), h =>
+                    {
+                        h.Username("guest");
+                        h.Password("guest");
+                    });
+
+                });
+            });
+
+
+            services.AddMassTransitHostedService();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

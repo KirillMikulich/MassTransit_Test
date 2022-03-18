@@ -1,9 +1,10 @@
 ﻿using MassTransit;
+using Shared.API.MassTransit;
 using System.Threading.Tasks;
 
 namespace TestMassTransit.Consumers
 {
-    public class A
+    public class A: IRequest<B>
     { 
         public int id { get; set; }
     }

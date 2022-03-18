@@ -22,7 +22,11 @@ namespace APIGetaway
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddOcelot(Configuration); 
+            services.AddOcelot(Configuration);
+            services.AddMediator(c =>
+            {
+                c.AddConsumers(Assembly.GetExecutingAssembly());
+            });
             services.AddMassTransit(x =>
             {
                 x.AddConsumers(Assembly.GetExecutingAssembly());
@@ -60,7 +64,7 @@ namespace APIGetaway
             });
 
             app.UseStaticFiles();
-            app.UseOcelot();
+            app.UseOcelot().Wait();
 
             app.UseEndpoints(endpoints =>
             {
