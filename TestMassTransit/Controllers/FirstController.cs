@@ -12,13 +12,11 @@ namespace TestMassTransit.Controllers
     public class FirstController : ControllerBase
     {
         private IBus _bus { get; set; }
-        private readonly IRequestClient<A> _requestClient;
         private readonly IMediator _mediator;
-        public FirstController(IBus bus, IRequestClient<A> requestClient, IMediator mediator)
+        public FirstController(IBus bus, IMediator mediator)
         {
             _bus = bus;
             _mediator = mediator;
-            _requestClient = requestClient;
         }
 
         [HttpGet("GetInfo")]

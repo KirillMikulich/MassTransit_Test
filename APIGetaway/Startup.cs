@@ -22,7 +22,7 @@ namespace APIGetaway
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddOcelot(Configuration);
+            services.AddOcelot(Configuration); 
             services.AddMassTransit(x =>
             {
                 x.AddConsumers(Assembly.GetExecutingAssembly());
@@ -39,11 +39,6 @@ namespace APIGetaway
 
             });
 
-            services.AddMediator(cfg =>
-            {
-                cfg.AddConsumers(Assembly.GetExecutingAssembly());
-                cfg.AddRequestClient<A>();
-            });
             services.AddMassTransitHostedService();
 
 
@@ -66,6 +61,11 @@ namespace APIGetaway
 
             app.UseStaticFiles();
             app.UseOcelot();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
 
         }
     }

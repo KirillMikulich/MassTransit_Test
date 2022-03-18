@@ -26,6 +26,11 @@ namespace TestMassTransit
         public void ConfigureServices(IServiceCollection services)
         {
 
+
+            services.AddMediator(c =>
+            {
+                c.AddConsumers(Assembly.GetExecutingAssembly());
+            });
             services.AddControllers();
             services.AddMassTransit(x =>
             {
@@ -43,11 +48,6 @@ namespace TestMassTransit
                 });
             });
 
-            services.AddMediator(cfg =>
-            {
-                cfg.AddConsumers(Assembly.GetExecutingAssembly());
-                cfg.AddRequestClient<A>();
-            });
 
             services.AddMassTransitHostedService();
             services.AddControllers();
