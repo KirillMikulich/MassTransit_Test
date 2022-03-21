@@ -7,7 +7,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Reflection;
-using TestMassTransit2.Consumers;
 
 namespace TestMassTransit
 {
@@ -41,7 +40,7 @@ namespace TestMassTransit
                         h.Username("guest");
                         h.Password("guest");
                     });
-
+                    configurator.ConfigureEndpoints(context);
                 });
             });
 

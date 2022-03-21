@@ -36,7 +36,7 @@ namespace TestMassTransit.Consumers
             {
 
             }
-
+            
             await context.RespondAsync<B>(new { name = "Kirill" });
         }
     }

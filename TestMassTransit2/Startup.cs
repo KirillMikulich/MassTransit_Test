@@ -27,10 +27,12 @@ namespace TestMassTransit2
             {
                 c.AddConsumers(Assembly.GetExecutingAssembly());
             });
+
             services.AddControllers();
             services.AddMassTransit(x =>
             {
                 x.AddConsumers(Assembly.GetExecutingAssembly());
+                
                 x.SetKebabCaseEndpointNameFormatter();
 
                 x.UsingRabbitMq((context, configurator) =>
@@ -41,6 +43,7 @@ namespace TestMassTransit2
                         h.Password("guest");
                     });
 
+                    configurator.ConfigureEndpoints(context);
                 });
             });
 
